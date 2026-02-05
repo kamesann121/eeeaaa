@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>新しいタブ</title>
+    <link rel="stylesheet" href="css/main.css">
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="https://cdnjs.cloudflare.com"></script>
+</head>
+<body>
+    <!-- [表] 学校用偽装画面 -->
+    <div id="facade-view">
+        <div class="paper">
+            <h1>第7章：完全弾性衝突の解析</h1>
+            <p>物体系に外力が働かないとき、系全体の運動量は一定に保たれる。これを運動量保存の法則と呼ぶ...</p>
+            <div class="formula">m₁v₁ + m₂v₂ = m₁v₁' + m₂v₂'</div>
+            <p class="hint">（解析ツールを起動するには Ctrl+A を押してください）</p>
+        </div>
+    </div>
+
+    <!-- [裏] 秘密のシステムオーバーレイ -->
+    <div id="secure-overlay" class="hidden">
+        
+        <!-- 注文：ログイン/アカウント作成画面 -->
+        <div id="auth-screen" class="ui-container">
+            <div class="auth-box">
+                <h2 id="auth-title">研究員ログイン</h2>
+                <input type="text" id="auth-nick" placeholder="ニックネーム">
+                <input type="password" id="auth-pass" placeholder="パスワード">
+                <div class="btn-stack">
+                    <button onclick="UIManager.submitAuth()" class="btn-primary">入室</button>
+                    <button onclick="UIManager.toggleAuthMode()">新規作成 / ログイン切替</button>
+                    <!-- 注文：戻るボタン -->
+                    <button onclick="UIManager.hideSystem()" class="btn-sub">戻る</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- 注文：ロビー（左パーティ、右フレンド、右上歯車） -->
+        <div id="lobby-screen" class="hidden">
+            <div class="lobby-layout">
+                <!-- 左：パーティ -->
+                <div class="pane pane-left">
+                    <h3>所属ユニット</h3>
+                    <div id="party-list" class="list-area">
+                        <div class="member-card self">自分 (Solo)</div>
+                    </div>
+                    <div class="match-controls">
+                        <button onclick="MatchManager.queue('duo')">2v2 開始</button>
+                        <button onclick="MatchManager.queue('squad')">4v4 開始</button>
+                    </div>
+                </div>
+                <!-- 右：フレンド一覧 -->
+                <div class="pane pane-right">
+                    <h3>コンタクト一覧</h3>
+                    <div id="friend-list" class="list-area"></div>
+                </div>
+            </div>
+            <!-- 右上歯車 -->
+            <div id="gear-icon" onclick="UIManager.toggleSettings()">⚙️</div>
+        </div>
+
+        <!-- 注文：歯車スライドUI（3つのタブ） -->
+        <div id="side-panel" class="side-panel">
+            <div class="tab-header">
+                <button onclick="UIManager.switchTab('profile')">プロフ</button>
+                <button onclick="UIManager.switchTab('search')">検索</button>
+                <button onclick="UIManager.switchTab('inbox')">受信</button>
+            </div>
+            <div class="tab-content">
+                <!-- タブ1：プロフィール設定 -->
+                <div id="tab-profile" class="tab-page">
+                    <p>UID: <span id="my-uid-display">---</span></p>
+                    <input type="text" id="nick-update" placeholder="ニックネーム変更">
+                    <div class="icon-selector">アイコン設定</div>
+                </div>
+                <!-- タブ2：プレイヤー検索 -->
+                <div id="tab-search" class="tab-page hidden">
+                    <input type="text" id="search-query" placeholder="ニックネームまたはUID">
+                    <button onclick="SocialManager.search()">検索</button>
+                    <div id="search-results"></div>
+                </div>
+                <!-- タブ3：フレンド申請受信欄 -->
+                <div id="tab-inbox" class="tab-page hidden">
+                    <div id="request-list"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 3Dエアホッケー本体の描画先 -->
+    <div id="simulation-canvas" class="hidden"></div>
+
+    <script src="js/socket-client.js"></script>
+    <script src="js/ui-manager.js"></script>
+    <script src="js/social-manager.js"></script>
+    <script src="js/party-manager.js"></script>
+</body>
+</html>
