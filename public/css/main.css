@@ -1,0 +1,25 @@
+body, html { margin: 0; overflow: hidden; font-family: "Helvetica Neue", sans-serif; }
+.hidden { display: none !important; }
+
+/* 表：偽装サイト */
+#facade-view { height: 100vh; background: #e0e0e0; display: flex; justify-content: center; align-items: center; }
+.paper { width: 80%; background: white; padding: 40px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); border-radius: 4px; }
+
+/* 裏：システム */
+#secure-overlay { position: fixed; inset: 0; background: #f8f9fa; z-index: 9999; }
+.ui-container { height: 100vh; display: flex; justify-content: center; align-items: center; }
+.auth-box { background: white; padding: 40px; border-radius: 12px; box-shadow: 0 5px 20px rgba(0,0,0,0.1); width: 320px; }
+
+/* ロビー：左右分割 */
+.lobby-layout { display: flex; height: 100vh; width: 100%; }
+.pane { flex: 1; padding: 40px; border-right: 1px solid #ddd; }
+.list-area { height: 70%; background: #fff; border: 1px solid #eee; margin: 20px 0; overflow-y: auto; }
+
+/* 歯車とスライドパネル */
+#gear-icon { position: absolute; top: 20px; right: 20px; font-size: 32px; cursor: pointer; color: #555; z-index: 10001; }
+.side-panel { position: fixed; right: -400px; top: 0; width: 350px; height: 100vh; background: white; box-shadow: -5px 0 15px rgba(0,0,0,0.1); transition: 0.4s cubic-bezier(0.16, 1, 0.3, 1); z-index: 10000; padding: 20px; }
+.side-panel.active { right: 0; }
+
+.tab-header { display: flex; gap: 10px; margin-bottom: 20px; }
+.tab-header button { flex: 1; padding: 8px; cursor: pointer; }
+input { width: 100%; padding: 10px; margin: 10px 0; border: 1px solid #ccc; border-radius: 4px; }
